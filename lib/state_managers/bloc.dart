@@ -15,6 +15,12 @@ class Bloc with Transformer {
       _emailController.stream.transform(emailValidator);
   Stream<String> get passwordStream =>
       _passwordController.stream.transform(passwordValidator);
+
+  // close sinks
+  disposeSink() {
+    _emailController.sink.close();
+    _passwordController.sink.close();
+  }
 }
 
 final bloc = Bloc();
