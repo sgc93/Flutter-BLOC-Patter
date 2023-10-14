@@ -1,6 +1,6 @@
-# bloc_patter
+# Flutter-BLOC-Patter
 
-A new Flutter project.
+A repository to understand the concepts of flutter project archetecture with BLOC patter, streams and provider.
 
 ## Getting Started
 
