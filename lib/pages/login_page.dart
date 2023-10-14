@@ -1,3 +1,4 @@
+import 'package:bloc_patter/state_managers/bloc.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,17 +16,19 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Center(
-          child: Column(
-            children: [
-              _sizedBox(200.0),
-              _wellComeText(),
-              _sizedBox(50.0),
-              _emailField(),
-              _sizedBox(20.0),
-              _passwordField(),
-              _sizedBox(30.0),
-              _submitBtn(deviceWidth),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _sizedBox(200.0),
+                _wellComeText(),
+                _sizedBox(50.0),
+                _emailField(),
+                _sizedBox(20.0),
+                _passwordField(),
+                _sizedBox(30.0),
+                _submitBtn(deviceWidth),
+              ],
+            ),
           ),
         ),
       ),
@@ -50,22 +53,42 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _emailField() {
-    return TextFormField(
-      obscureText: false,
-      keyboardType: TextInputType.emailAddress,
-      decoration: _inputDecoration('Email Address', 'xyz@gmail.com'),
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: bloc.changeEmail,
+          obscureText: false,
+          keyboardType: TextInputType.emailAddress,
+          decoration: _inputDecoration(
+            'Email Address',
+            'xyz@gmail.com',
+            snapshot.error,
+          ),
+        );
+      },
     );
   }
 
   Widget _passwordField() {
-    return TextFormField(
-      obscureText: true,
-      keyboardType: TextInputType.text,
-      decoration: _inputDecoration('password', ''),
+    return StreamBuilder(
+      stream: bloc.passwordStream,
+      builder: (context, snapshot) {
+        return TextFormField(
+          onChanged: bloc.changePassword,
+          obscureText: true,
+          keyboardType: TextInputType.text,
+          decoration: _inputDecoration(
+            'password',
+            '',
+            snapshot.error,
+          ),
+        );
+      },
     );
   }
 
-  _inputDecoration(label, hint) {
+  _inputDecoration(label, hint, error) {
     return InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(13),
@@ -83,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
       filled: true,
       label: Text(label),
       hintText: hint,
+      errorText: error,
     );
   }
 
