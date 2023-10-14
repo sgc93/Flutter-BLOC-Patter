@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_patter/state_managers/transformer.dart';
 
-class Blo with Transformer {
+class Bloc with Transformer {
   final _emailController = StreamController<String>();
   final _passwordController = StreamController<String>();
 
@@ -16,3 +16,5 @@ class Blo with Transformer {
   Stream<String> get passwordStream =>
       _passwordController.stream.transform(passwordValidator);
 }
+
+final bloc = Bloc();
