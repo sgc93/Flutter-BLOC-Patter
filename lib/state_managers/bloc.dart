@@ -22,5 +22,3 @@ class Bloc with Transformer {
     _passwordController.sink.close();
   }
 }
-
-final bloc = Bloc();
