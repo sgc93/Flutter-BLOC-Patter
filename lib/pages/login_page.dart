@@ -1,4 +1,5 @@
 import 'package:bloc_patter/state_managers/bloc.dart';
+import 'package:bloc_patter/state_managers/provider.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,7 +12,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
+
     final double deviceWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -19,12 +23,12 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _sizedBox(200.0),
+                // _sizedBox(200.0),
                 _wellComeText(),
                 _sizedBox(50.0),
-                _emailField(),
+                _emailField(bloc),
                 _sizedBox(20.0),
-                _passwordField(),
+                _passwordField(bloc),
                 _sizedBox(30.0),
                 _submitBtn(deviceWidth),
               ],
@@ -52,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _emailField() {
+  Widget _emailField(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.emailStream,
       builder: (context, snapshot) {
@@ -70,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _passwordField() {
+  Widget _passwordField(Bloc bloc) {
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (context, snapshot) {
